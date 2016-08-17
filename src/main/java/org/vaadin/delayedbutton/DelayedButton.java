@@ -63,7 +63,7 @@ public class DelayedButton extends Button {
      * @param seconds
      *            Number of seconds. Zero or negative number disables the
      *            behaviour.
-     * @ssee {@link #setEnabled(boolean)}
+     * @see #setEnabled(boolean) 
      */
     public void setDelay(int seconds) {
         getState().setDelay(seconds > 0 ? seconds : 0);
