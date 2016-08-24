@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/samie/delayedbutton.svg?branch=master)](https://travis-ci.org/samie/delayedbutton)
+
 # DelayedButton add-on for Vaadin
 
 DelayedButton implements a Button that becomes active only after given delay. Until then a count down caption is presented to user. See demo at [sami.app.fi/delayedbutton/](http://sami.app.fi/delayedbutton/).
