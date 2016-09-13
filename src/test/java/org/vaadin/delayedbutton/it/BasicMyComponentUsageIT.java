@@ -1,5 +1,6 @@
 package org.vaadin.delayedbutton.it;
 
+import com.machinepublishers.jbrowserdriver.JBrowserDriver;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -22,7 +23,7 @@ public class BasicMyComponentUsageIT extends AbstractWebDriverCase {
     @Test
     public void testJavaScriptComponentWithBrowser() throws InterruptedException {
 
-        startBrowser(new ChromeDriver());
+        startBrowser(new JBrowserDriver());
 
         driver.navigate().to(BASEURL + BasicDelayedButtonUsageUI.class.getName());
 
