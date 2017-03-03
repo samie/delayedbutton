@@ -126,7 +126,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>org.vaadin.addons.*</Export-Package>
+                        <Export-Package>org.vaadin.delayedbutton.*</Export-Package>
                     </instructions>
                 </configuration>
                 <executions>
