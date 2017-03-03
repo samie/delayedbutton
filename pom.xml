@@ -3,7 +3,7 @@
     <groupId>org.vaadin.addons</groupId>
     <artifactId>delayedbutton</artifactId>
     <name>DelayedButton</name>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <organization>
         <name>Vaadin Community</name>
