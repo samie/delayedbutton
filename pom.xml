@@ -3,7 +3,7 @@
     <groupId>org.vaadin.addons</groupId>
     <artifactId>delayedbutton</artifactId>
     <name>DelayedButton</name>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <organization>
         <name>Vaadin Community</name>
@@ -19,6 +19,8 @@
         <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
         <Vaadin-License-Title>Apache License 2.0</Vaadin-License-Title>
         <Vaadin-Addon>${project.artifactId}-${project.version}.jar</Vaadin-Addon>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <scm>
         <url>git://github.com/samie/delayedbutton.git</url>
@@ -49,18 +51,7 @@
             <version>${vaadin.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin</groupId>
-            <artifactId>addon-test-helpers</artifactId>
-            <version>2.0.alpha5</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-themes</artifactId>
@@ -73,12 +64,55 @@
             <version>${vaadin.version}</version>
             <scope>test</scope>
         </dependency>
+         <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-testbench</artifactId>
+            <version>5.0.0</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-firefox-driver</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.vaadin</groupId>
+            <artifactId>addon-test-helpers</artifactId>
+            <version>2.0.alpha3</version>
+            <scope>test</scope>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-java</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>com.machinepublishers</groupId>
             <artifactId>jbrowserdriver</artifactId>
-            <version>0.16.4</version>
+            <version>0.17.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-remote-driver</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-server</artifactId>
+                </exclusion>
+            </exclusions>
             <scope>test</scope>
-        </dependency>    
+            <type>jar</type>
+        </dependency>
+        
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -115,15 +149,6 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
             <!-- add proper OGSI entries to manifest -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -188,7 +213,7 @@
                 <version>${vaadin.version}</version>
                 <configuration>
                     <webappDirectory>${project.build.directory}/testwebapp/VAADIN/widgetsets</webappDirectory>
-                    <extraJvmArgs>-Xmx1024M -Xss512m -XX:MaxPermSize=1024m</extraJvmArgs>
+                    <extraJvmArgs>-Xmx1024M -Xss512m</extraJvmArgs>
                     <hostedWebapp>${project.build.directory}/testwebapp</hostedWebapp>
                     <noServer>true</noServer>
                     <runTarget>http://localhost:9998/</runTarget>
