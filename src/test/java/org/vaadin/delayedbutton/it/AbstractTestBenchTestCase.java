@@ -42,15 +42,22 @@ public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
     protected static String URL = "http://localhost:" + PORT + "/"; 
 
     private static Server server;
-    private static WebDriver sharedBrowser;
 
     @BeforeClass
     public static void beforeAllTests() throws Exception {
         // Start the server
         server = new TServer().startServer(PORT);
+    }
 
-        // Create a single webdriver that is shared with all tests
-        sharedBrowser = TestBench.createDriver(new JBrowserDriver(Settings.builder()
+    @AfterClass
+    public static void afterAllTests() throws Exception {
+        // Stop the server
+        server.stop();
+    }
+
+    @Before
+    public void beforeTest() {
+        setDriver(TestBench.createDriver(new JBrowserDriver(Settings.builder()
                 .requestHeaders(RequestHeaders.CHROME)
                 .userAgent(new UserAgent(
                         UserAgent.Family.WEBKIT,
@@ -59,28 +66,7 @@ public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
                         "Windows NT 6.1",
                         "5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36",
                         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36"))
-                .build()));
-    }
-
-    @AfterClass
-    public static void afterAllTests() throws Exception {
-
-        // Stop the browser
-        if (sharedBrowser != null) {
-            sharedBrowser.quit();
-        }
-
-        // Stop the server
-        server.stop();
-    }
-
-    @Before
-    public void beforeTest() {
-        
-        // Make sure we have a browser available to test with
-        if (getDriver() == null) {
-            setDriver(sharedBrowser);
-        }
+                .build())));
     }
 
     /**
