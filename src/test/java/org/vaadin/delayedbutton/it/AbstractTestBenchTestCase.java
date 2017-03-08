@@ -20,12 +20,14 @@ import com.machinepublishers.jbrowserdriver.JBrowserDriver;
 import com.machinepublishers.jbrowserdriver.RequestHeaders;
 import com.machinepublishers.jbrowserdriver.Settings;
 import com.machinepublishers.jbrowserdriver.UserAgent;
+import com.vaadin.testbench.ScreenshotOnFailureRule;
 import com.vaadin.testbench.TestBench;
 import com.vaadin.testbench.TestBenchTestCase;
 import org.eclipse.jetty.server.Server;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.openqa.selenium.WebDriver;
 import org.vaadin.addonhelpers.TServer;
 
@@ -39,7 +41,7 @@ public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
     
     // host and port configuration for the URL
     protected static int PORT = 5678;
-    protected static String URL = "http://localhost:" + PORT + "/"; 
+    protected static String URL = "http://localhost:" + PORT + "/";
 
     private static Server server;
 
@@ -55,9 +57,12 @@ public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
         server.stop();
     }
 
+    @Rule
+    public final ScreenshotOnFailureRule screenshotOnFailureRule = new ScreenshotOnFailureRule(this);
+
     @Before
     public void beforeTest() {
-        setDriver(TestBench.createDriver(new JBrowserDriver(Settings.builder()
+        setDriver(new JBrowserDriver(Settings.builder()
                 .requestHeaders(RequestHeaders.CHROME)
                 .userAgent(new UserAgent(
                         UserAgent.Family.WEBKIT,
@@ -66,7 +71,7 @@ public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
                         "Windows NT 6.1",
                         "5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36",
                         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36"))
-                .build())));
+                .build()));
     }
 
     /**
