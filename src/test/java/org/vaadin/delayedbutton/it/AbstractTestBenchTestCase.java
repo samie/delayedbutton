@@ -17,6 +17,9 @@
 package org.vaadin.delayedbutton.it;
 
 import com.machinepublishers.jbrowserdriver.JBrowserDriver;
+import com.machinepublishers.jbrowserdriver.RequestHeaders;
+import com.machinepublishers.jbrowserdriver.Settings;
+import com.machinepublishers.jbrowserdriver.UserAgent;
 import com.vaadin.testbench.TestBench;
 import com.vaadin.testbench.TestBenchTestCase;
 import org.eclipse.jetty.server.Server;
@@ -47,7 +50,16 @@ public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
         server = new TServer().startServer(PORT);
 
         // Create a single webdriver that is shared with all tests
-        sharedBrowser = TestBench.createDriver(new JBrowserDriver());
+        sharedBrowser = TestBench.createDriver(new JBrowserDriver(Settings.builder()
+                .requestHeaders(RequestHeaders.CHROME)
+                .userAgent(new UserAgent(
+                        UserAgent.Family.WEBKIT,
+                        "Google Inc.",
+                        "Win32",
+                        "Windows NT 6.1",
+                        "5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36"))
+                .build()));
     }
 
     @AfterClass
