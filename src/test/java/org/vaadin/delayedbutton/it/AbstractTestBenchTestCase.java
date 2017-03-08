@@ -17,12 +17,18 @@
 package org.vaadin.delayedbutton.it;
 
 import com.machinepublishers.jbrowserdriver.JBrowserDriver;
+import com.machinepublishers.jbrowserdriver.RequestHeaders;
+import com.machinepublishers.jbrowserdriver.Settings;
+import com.machinepublishers.jbrowserdriver.UserAgent;
+import com.vaadin.testbench.ScreenshotOnFailureRule;
 import com.vaadin.testbench.TestBench;
 import com.vaadin.testbench.TestBenchTestCase;
+import com.vaadin.ui.UI;
 import org.eclipse.jetty.server.Server;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.openqa.selenium.WebDriver;
 import org.vaadin.addonhelpers.TServer;
 
@@ -33,42 +39,46 @@ import org.vaadin.addonhelpers.TServer;
  * @author Sami Ekblad
  */
 public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
-    
+
+    private final Class<? extends UI> ui;
+
+    protected AbstractTestBenchTestCase(Class<? extends UI> ui) {
+        this.ui = ui;
+    }
+
     // host and port configuration for the URL
-    protected static int PORT = 5678;
-    protected static String URL = "http://localhost:" + PORT + "/"; 
+    private static final int PORT = 5678;
+    private static final String URL = "http://localhost:" + PORT + "/";
 
     private static Server server;
-    private static WebDriver sharedBrowser;
 
     @BeforeClass
     public static void beforeAllTests() throws Exception {
         // Start the server
         server = new TServer().startServer(PORT);
-
-        // Create a single webdriver that is shared with all tests
-        sharedBrowser = TestBench.createDriver(new JBrowserDriver());
     }
 
     @AfterClass
     public static void afterAllTests() throws Exception {
-
-        // Stop the browser
-        if (sharedBrowser != null) {
-            sharedBrowser.quit();
-        }
-
         // Stop the server
         server.stop();
     }
 
+    @Rule
+    public final ScreenshotOnFailureRule screenshotOnFailureRule = new ScreenshotOnFailureRule(this);
+
     @Before
     public void beforeTest() {
-        
-        // Make sure we have a browser available to test with
-        if (getDriver() == null) {
-            setDriver(sharedBrowser);
-        }
+        setDriver(new JBrowserDriver(Settings.builder()
+                .requestHeaders(RequestHeaders.CHROME)
+                .userAgent(new UserAgent(
+                        UserAgent.Family.WEBKIT,
+                        "Google Inc.",
+                        "Win32",
+                        "Windows NT 6.1",
+                        "5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36"))
+                .build()));
     }
 
     /**
@@ -77,7 +87,6 @@ public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
      *
      */
     protected void reload() {
-        getDriver().get(URL);
+        getDriver().get(URL + ui.getName());
     }
-
 }

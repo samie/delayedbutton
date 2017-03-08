@@ -13,11 +13,8 @@ import org.vaadin.delayedbutton.BasicDelayedButtonUsageUI;
  */
 public class BasicDelayedButtonUsageIT extends AbstractTestBenchTestCase {
 
-
-    /** Construct with the right testing URL. 
-     */    
     public BasicDelayedButtonUsageIT() {
-        URL = URL + BasicDelayedButtonUsageUI.class.getName();
+        super(BasicDelayedButtonUsageUI.class);
     }
     
     @Test
