@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/samie/delayedbutton.svg?branch=master)](https://travis-ci.org/samie/delayedbutton)
 
-[![Vaadin_Directory 2.0.1](https://img.shields.io/badge/Vaadin_Directory-2.0.1-blue.svg)](https://vaadin.com/addon/delayedbutton)
+[![Vaadin_Directory 3.0.0](https://img.shields.io/badge/Vaadin_Directory-3.0.0-blue.svg)](https://vaadin.com/addon/delayedbutton)
 
 # DelayedButton add-on for Vaadin
 
