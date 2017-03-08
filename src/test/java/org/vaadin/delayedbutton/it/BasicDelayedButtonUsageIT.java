@@ -19,10 +19,7 @@ public class BasicDelayedButtonUsageIT extends AbstractTestBenchTestCase {
     
     @Test
     public void testJavaScriptComponentWithBrowser() throws InterruptedException {
-        
-        // Reload the the test page
-        reload();
-        
+               
         // Click the only button on in UI
         $(ButtonElement.class).first().click();
 

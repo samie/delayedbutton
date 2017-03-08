@@ -21,7 +21,6 @@ import com.machinepublishers.jbrowserdriver.RequestHeaders;
 import com.machinepublishers.jbrowserdriver.Settings;
 import com.machinepublishers.jbrowserdriver.UserAgent;
 import com.vaadin.testbench.ScreenshotOnFailureRule;
-import com.vaadin.testbench.TestBench;
 import com.vaadin.testbench.TestBenchTestCase;
 import com.vaadin.ui.UI;
 import org.eclipse.jetty.server.Server;
@@ -29,12 +28,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
-import org.openqa.selenium.WebDriver;
 import org.vaadin.addonhelpers.TServer;
 
 /** Abstract helper class for testing with embedded server.
- * 
- * 
  * 
  * @author Sami Ekblad
  */
@@ -79,6 +75,7 @@ public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
                         "5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36",
                         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2869.0 Safari/537.36"))
                 .build()));
+        reload();
     }
 
     /**
