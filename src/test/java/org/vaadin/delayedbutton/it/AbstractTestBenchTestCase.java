@@ -23,6 +23,7 @@ import com.machinepublishers.jbrowserdriver.UserAgent;
 import com.vaadin.testbench.ScreenshotOnFailureRule;
 import com.vaadin.testbench.TestBench;
 import com.vaadin.testbench.TestBenchTestCase;
+import com.vaadin.ui.UI;
 import org.eclipse.jetty.server.Server;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,10 +39,16 @@ import org.vaadin.addonhelpers.TServer;
  * @author Sami Ekblad
  */
 public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
-    
+
+    private final Class<? extends UI> ui;
+
+    protected AbstractTestBenchTestCase(Class<? extends UI> ui) {
+        this.ui = ui;
+    }
+
     // host and port configuration for the URL
-    protected static int PORT = 5678;
-    protected static String URL = "http://localhost:" + PORT + "/";
+    private static final int PORT = 5678;
+    private static final String URL = "http://localhost:" + PORT + "/";
 
     private static Server server;
 
@@ -80,7 +87,6 @@ public abstract class AbstractTestBenchTestCase extends TestBenchTestCase {
      *
      */
     protected void reload() {
-        getDriver().get(URL);
+        getDriver().get(URL + ui.getName());
     }
-
 }
