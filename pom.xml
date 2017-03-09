@@ -3,7 +3,7 @@
     <groupId>org.vaadin.addons</groupId>
     <artifactId>delayedbutton</artifactId>
     <name>DelayedButton</name>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
     <packaging>bundle</packaging>
     <organization>
         <name>Vaadin Community</name>
@@ -26,7 +26,7 @@
         <url>git://github.com/samie/delayedbutton.git</url>
         <connection>scm:git:git://github.com/samie/delayedbutton.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:/samie/delayedbutton.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>delayedbutton-3.0.0</tag>
     </scm>
     <issueManagement>
         <system>GitHub</system>
