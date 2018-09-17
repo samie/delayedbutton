@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/samie/delayedbutton.svg?branch=master)](https://travis-ci.org/samie/delayedbutton)
-
-[![Vaadin_Directory 3.0.0](https://img.shields.io/badge/Vaadin_Directory-3.0.0-blue.svg)](https://vaadin.com/addon/delayedbutton)
+[![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/delayedbutton)
+[![Stars on Vaadin Directory](https://img.shields.io/vaadin-directory/star/delayedbutton.svg)](https://vaadin.com/directory/component/delayedbutton)
+[![Latest version](https://img.shields.io/vaadin-directory/v/delayedbutton.svg)](https://vaadin.com/directory/component/delayedbutton)
 
 # DelayedButton add-on for Vaadin
 
