@@ -20,7 +20,7 @@ jobs:
         cache: maven
     - name: Build with Maven for Directory
       run: mvn -B install -Pdirectory --file pom.xml
-    - name: Rename the war and remove the version
+    - name: Rename the zip 
       run: mv target/${{env.ADDON}}*.zip ${{env.ADDON}}.zip
     - name: Upload to Vaadin Directory
       uses: wei/curl@v1
