@@ -25,7 +25,10 @@ jobs:
     - name: Upload to Vaadin Directory
       uses: wei/curl@v1
       with:
-        args: -X POST "https://vaadin.com/vaadincom/directory-service/upload/${{env.ADDON}}" -F "authKey=${{ secrets.DIRECTORY_AUTH_KEY}}" -F "publish=true" -F "releaseNotes=test" -H "accept:\ */*" -H "Content-Type:\ multipart/form-data" -F "file=@${{env.ADDON}}.zip;type=application/zip"
+        args: -X POST "https://vaadin.com/vaadincom/directory-service/upload/${{env.ADDON}}" -F "authKey=${{ secrets.DIRECTORY_AUTH_KEY }}" -F "publish=true" -F "releaseNotes=test" -H "accept:\ */*" -H "Content-Type:\ multipart/form-data" -F "file=@${{env.ADDON}}.zip;type=application/zip"
     - name: The Publish has failed
       if: ${{ job.status == 'failure' }}
-      run: echo Job failed with status ${job.status}
+      uses: actions/github-script@v3
+      with:
+        script: |
+          core.setFailed('Failed to upload ${{env.ADDON}}')
