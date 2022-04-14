@@ -14,11 +14,11 @@ jobs:
     - name: Build with Maven for Directory
       run: mvn -B install -Pdirectory --file pom.xml
     - name: Rename the war and remove the version
-      run: mv sortable-layout/target/${ADDON}*.zip ${ADDON}.zip
+      run: mv target/${{env.ADDON}}*.zip ${{env.ADDON}}.zip
     - name: Upload to Vaadin Directory
       uses: wei/curl@v1
       with:
-        args: -X POST "https://vaadin.com/vaadincom/directory-service/upload/${ADDON}" -F "authKey=${{ secrets.DIRECTORY_AUTH_KEY }}" -F "publish=false" -F "releaseNotes=test" -H "accept:\ */*" -H "Content-Type:\ multipart/form-data" -F "file=@sortable-layout.zip;type=application/zip"
+        args: -X POST "https://vaadin.com/vaadincom/directory-service/upload/${env.ADDON}" -F "authKey=${{ secrets.DIRECTORY_AUTH_KEY }}" -F "publish=false" -F "releaseNotes=test" -H "accept:\ */*" -H "Content-Type:\ multipart/form-data" -F "file=@${{env.ADDON}}.zip;type=application/zip"
     - name: The Publish has failed
       if: ${{ job.status == 'failure' }}
       run: echo Job failed with status ${job.status}
