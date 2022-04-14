@@ -21,3 +21,4 @@ jobs:
         args: -X POST "https://vaadin.com/vaadincom/directory-service/upload/${ADDON}" -F "authKey=${{ secrets.DIRECTORY_AUTH_KEY }}" -F "publish=false" -F "releaseNotes=test" -H "accept:\ */*" -H "Content-Type:\ multipart/form-data" -F "file=@sortable-layout.zip;type=application/zip"
     - name: The Publish has failed
       if: ${{ job.status == 'failure' }}
+      run: echo Job failed with status ${job.status}
