@@ -13,22 +13,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
+      id: jdk
       uses: actions/setup-java@v2
       with:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven for Directory
+      id: build
       run: mvn -B install -Pdirectorypackage --file pom.xml
-    - name: Rename the zip 
+    - name: Rename the zip
+      id: post-process
       run: mv target/${{env.ADDON}}*.zip ${{env.ADDON}}.zip
     - name: Upload to Vaadin Directory
+      id: upload
       uses: wei/curl@v1
+      continue-on-error: false  
       with:
         args: -X POST "https://vaadin.com/vaadincom/directory-service/upload/${{env.ADDON}}" -F "authKey=${{ secrets.DIRECTORY_AUTH_KEY }}" -F "publish=true" -F "releaseNotes=test" -H "accept:\ */*" -H "Content-Type:\ multipart/form-data" -F "file=@${{env.ADDON}}.zip;type=application/zip"
     - name: Report upload failure
       if: ${{ job.status == 'failure' }}
-      uses: actions/github-script@v3
-      with:
-        script: |
-          core.setFailed('Failed to upload ${{env.ADDON}}')
+      run: echo '${{ toJSON(job) }}' ;  exit 1
